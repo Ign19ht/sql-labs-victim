@@ -1,0 +1,4 @@
+uvicorn
+from fastapi
+psycopg2
+python-multipart
