@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/bootstrap.min.css')}}">
+    <script defer src="{{ url_for('static', path='/js/bootstrap.bundle.min.js')}}"></script>
+    <title>News</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">News</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/">Dashboard</a>
+                </li>
+            </ul>
+            <form class="d-flex">
+                 <a href="/login" class="btn btn-outline-success" role="button">Log in</a>
+            </form>
+        </div>
+    </div>
+</nav>
+<div class="btn-group ms-5 my-3" role="group" aria-label="Basic example">
+    <a href="/" class="btn btn-primary" role="button">All</a>
+    <a href="/filter?category=Recent" class="btn btn-primary" role="button">Recent</a>
+    <a href="/filter?category=IT" class="btn btn-primary" role="button">IT</a>
+    <a href="/filter?category=Innopolis" class="btn btn-primary" role="button">Innopolis</a>
+    <a href="/filter?category=Russia" class="btn btn-primary" role="button">Russia</a>
+</div>
+{% for news_row in news_rows %}
+<div class="card-group mx-1">
+    {% for news in news_row %}
+    <div class="card mx-3">
+        <img class="card-img-top" src="image/{{news.image_name}}" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">{{news.title}}</h5>
+            <p class="card-text">{{news.text}}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endfor %}
+</body>
+</html>
