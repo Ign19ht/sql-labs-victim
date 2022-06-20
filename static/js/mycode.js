@@ -16,13 +16,11 @@ login.addEventListener("click", evt => {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
             let response = xhr.response;
-            console.log(response)
             if (response === "0") {
                 message.textContent = "Wrong password"
             } else if (response === "1") {
                 message.textContent = "Authentication complete"
             }
-            console.log(response);
         }
     }
     xhr.send(body);

@@ -13,7 +13,7 @@ def db_request(query: str):
     con = None
     rows = None
     try:
-        con = psycopg2.connect(database="sql-injection", user="postgres",
+        con = psycopg2.connect(database="sql-labs", user="postgres",
                                password="qwerlodaza", host="127.0.0.1", port="5432")
         cur = con.cursor()
         cur.execute(query)
@@ -63,7 +63,8 @@ async def use_filter(request: Request, category: str, session: str = Cookie(""))
     query = f"SELECT title, body, image_name FROM news WHERE category='{category}' AND hidden=0"
     rows = db_request(query)
     print(len(rows))
-    response = templates.TemplateResponse("index.html", {"request": request, "news_rows": get_news(rows)})
+    response = templates.TemplateResponse("index.html",
+                                          {"request": request, "news_rows": get_news(rows), "category": category})
     if not session:
         response.set_cookie("session", get_new_cookie())
     return response
@@ -74,7 +75,8 @@ async def show_all(request: Request, session: str = Cookie("")):
     check_cookie(session)
     query = f"SELECT title, body, image_name FROM news WHERE hidden=0"
     rows = db_request(query)
-    response = templates.TemplateResponse("index.html", {"request": request, "news_rows": get_news(rows)})
+    response = templates.TemplateResponse("index.html",
+                                          {"request": request, "news_rows": get_news(rows), "category": "All"})
     if not session:
         response.set_cookie("session", get_new_cookie())
     return response

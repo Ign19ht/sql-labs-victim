@@ -6,7 +6,6 @@
     <script defer src="{{ url_for('static', path='/js/bootstrap.bundle.min.js')}}"></script>
     <title>News</title>
 </head>
-<body>
 <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">News</a>
@@ -27,8 +26,10 @@
     <a href="/filter?category=Recent" class="btn btn-primary" role="button">Recent</a>
     <a href="/filter?category=IT" class="btn btn-primary" role="button">IT</a>
     <a href="/filter?category=Innopolis" class="btn btn-primary" role="button">Innopolis</a>
-    <a href="/filter?category=Russia" class="btn btn-primary" role="button">Russia</a>
+    <a href="/filter?category=Animals" class="btn btn-primary" role="button">Animals</a>
 </div>
+<h3 class="text-center mb-4">{{ category }}</h3>
+{#<div class="text-center"> HELLO </div>#}
 {% for news_row in news_rows %}
 <div class="card-group mx-1">
     {% for news in news_row %}

@@ -1,4 +1,5 @@
 uvicorn
-from fastapi
+fastapi
 psycopg2
 python-multipart
+jinja2
