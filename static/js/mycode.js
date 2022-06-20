@@ -19,7 +19,8 @@ login.addEventListener("click", evt => {
             if (response === "0") {
                 message.textContent = "Wrong password"
             } else if (response === "1") {
-                message.textContent = "Authentication complete"
+                window.open("http://127.0.0.1:8000/","_self")
+                alert("authentication complete")
             }
         }
     }
