@@ -10,21 +10,15 @@ from fastapi.staticfiles import StaticFiles
 
 
 def db_request(query: str):
-    con = None
-    rows = None
-    try:
-        con = psycopg2.connect(database="sql-labs", user="postgres",
-                               password="qwerlodaza", host="127.0.0.1", port="5432")
-        cur = con.cursor()
-        cur.execute(query)
-        rows = cur.fetchall()
+    con = psycopg2.connect(database="sql-labs", user="postgres",
+                           password="qwerlodaza", host="127.0.0.1", port="5432")
+    cur = con.cursor()
+    cur.execute(query)
+    rows = cur.fetchall()
 
-        cur.close()
-    except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
-    finally:
-        if con is not None:
-            con.close()
+    cur.close()
+    con.close()
+
     return rows
 
 
@@ -60,6 +54,7 @@ templates = Jinja2Templates(directory="templates/victim")
 
 @app.get("/filter", response_class=HTMLResponse)
 async def use_filter(request: Request, category: str, session: str = Cookie("")):
+    check_cookie(session)
     query = f"SELECT title, body, image_name FROM news WHERE category='{category}' AND hidden=0"
     rows = db_request(query)
     print(len(rows))
