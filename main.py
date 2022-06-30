@@ -143,9 +143,9 @@ async def login(request: Request, username: str = Form(), password: str = Form()
     else:
         rows = db_request_postgres(query)
     if len(rows) > 0:
-        return 'accepted'
+        return 1
     else:
-        return 'wrong username or password'
+        return 0
 
 
 if __name__ == "__main__":
