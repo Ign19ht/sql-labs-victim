@@ -39,7 +39,6 @@ def db_request_maria(query: str):
                            password="qwerlodaza", host="127.0.0.1", port=3306)
     cur = con.cursor()
     cur.execute(query)
-    # print(cur)
     rows = cur.fetchall()
 
     cur.close()
@@ -154,6 +153,7 @@ async def login(request: Request, username: str = Form(), password: str = Form()
 if __name__ == "__main__":
     if sys.argv[1] == 'postgres':
         db_type = DataBaseType.POSTGRES
+        uvicorn.run(app, host="127.0.0.1", port=8000)
     elif sys.argv[1] == 'maria':
         db_type = DataBaseType.MARIA
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+        uvicorn.run(app, host="127.0.0.1", port=8001)
