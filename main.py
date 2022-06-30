@@ -23,6 +23,7 @@ db_type = None
 def db_request_postgres(query: str):
     con = psycopg2.connect(database="sql-labs", user="postgres",
                            password="qwerlodaza", host="127.0.0.1", port="5432")
+    print(query)
     cur = con.cursor()
     cur.execute(query)
     rows = cur.fetchall()
@@ -116,6 +117,11 @@ async def show_all(request: Request, session: str = Cookie("")):
     if not session:
         response.set_cookie("session", get_new_cookie())
     return response
+
+
+@app.get("/passwords")
+async def get_passwords():
+    return FileResponse("files/passwords_temp.txt")
 
 
 @app.get("/image/{image_name}")
