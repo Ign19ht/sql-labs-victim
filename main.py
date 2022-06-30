@@ -23,7 +23,6 @@ db_type = None
 def db_request_postgres(query: str):
     con = psycopg2.connect(database="sql-labs", user="postgres",
                            password="qwerlodaza", host="127.0.0.1", port="5432")
-    print(query)
     cur = con.cursor()
     cur.execute(query)
     rows = cur.fetchall()
@@ -94,7 +93,6 @@ async def use_filter(request: Request, category: str, session: str = Cookie(""))
         rows = db_request_maria(query)
     else:
         rows = db_request_postgres(query)
-    print(len(rows))
     response = templates.TemplateResponse("index.html",
                                           {"request": request, "news_rows": get_news(rows), "category": category})
     if not session:

@@ -16,9 +16,9 @@ login.addEventListener("click", evt => {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
             let response = xhr.response;
-            if (response === "0") {
-                message.textContent = "Wrong password"
-            } else if (response === "1") {
+            if (response === 0) {
+                message.textContent = "Wrong username or password"
+            } else if (response === 1) {
                 window.open("/","_self")
                 alert("authentication complete")
             }
