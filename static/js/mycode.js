@@ -6,6 +6,7 @@ var message = document.getElementById("message")
 login.addEventListener("click", evt => {
     evt.preventDefault();
     if (username_filed.value.length == 0 || password_filed.value.length == 0) {
+        message.textContent = "Both fields must be filled"
         return 0;
     }
     let xhr = new XMLHttpRequest();
