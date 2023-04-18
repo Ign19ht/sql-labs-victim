@@ -6,6 +6,7 @@ from fastapi.responses import FileResponse, HTMLResponse
 import psycopg2
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
+from db_gen import fill_db
 
 
 def db_request_postgres(query: str):
@@ -35,7 +36,7 @@ def get_news(rows):
 
 
 app = FastAPI()
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates/victim")
 
 
@@ -79,4 +80,5 @@ async def login(request: Request, username: str = Form(), password: str = Form()
 
 
 if __name__ == "__main__":
+    fill_db()
     uvicorn.run(app, host="127.0.0.1", port=8000)
