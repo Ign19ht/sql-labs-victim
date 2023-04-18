@@ -34,7 +34,7 @@
 <div class="card-group mx-1">
     {% for news in news_row %}
     <div class="card mx-3">
-        <img class="card-img-top" src="image/{{news.image_name}}" alt="Card image cap">
+        <img class="card-img-top" src="/image?image_name={{news.image_name}}" alt="Card image cap">
         <div class="card-body">
             <h5 class="card-title">{{news.title}}</h5>
             <p class="card-text">{{news.text}}</p>
