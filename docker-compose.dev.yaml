@@ -6,14 +6,10 @@ services:
     container_name: db_library
     hostname: db
     restart: always
-    volumes:
-      - ./data:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=db
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-    ports:
-        - 32700:5432
     networks:
       - db-network
 
@@ -22,8 +18,6 @@ services:
     container_name: backend_library
     hostname: backend
     restart: always
-    volumes:
-      - ./backend/Images:/prod/Images
     command: python main.py
     environment:
       - POSTGRES_HOST=db

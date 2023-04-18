@@ -10,8 +10,8 @@ from db_gen import fill_db
 
 
 def db_request_postgres(query: str):
-    con = psycopg2.connect(database="sql-labs", user="postgres",
-                           password="qwerlodaza", host="127.0.0.1", port="5432")
+    con = psycopg2.connect(database="db", user="postgres", host="db",
+                           password="postgres", port="5432")
     cur = con.cursor()
     cur.execute(query)
     rows = cur.fetchall()
@@ -36,7 +36,7 @@ def get_news(rows):
 
 
 app = FastAPI()
-app.mount("static", StaticFiles(directory="static"), name="static")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates/victim")
 
 

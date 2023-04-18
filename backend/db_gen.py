@@ -15,8 +15,8 @@ news_types = ['Animals', 'IT', 'Innopolis', 'Recent']
 
 
 def fill_db():
-    con = psycopg2.connect(database="sql-labs", user="postgres",
-                           password="qwerlodaza", host="127.0.0.1", port="5432")
+    con = psycopg2.connect(database="db", user="postgres", host="db",
+                           password="postgres", port="5432")
 
     print("Database opened successfully")
     cur = con.cursor()
