@@ -6,6 +6,8 @@ from fastapi.responses import FileResponse, HTMLResponse
 import psycopg2
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
+from jinja2 import FileSystemLoader, Environment
+
 from db_gen import fill_db
 
 
@@ -39,6 +41,9 @@ app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates/victim")
 
+loader = FileSystemLoader(searchpath="templates/victim")
+unsafe_env = Environment(loader=loader, autoescape=False)
+
 
 @app.get("/filter", response_class=HTMLResponse)
 async def use_filter(request: Request, category: str):
@@ -47,8 +52,9 @@ async def use_filter(request: Request, category: str):
         rows = db_request_postgres(query)
     except Exception:
         rows = []
-    response = templates.TemplateResponse("index.html",
-                                          {"request": request, "news_rows": get_news(rows), "category": category})
+    response = unsafe_env.get_template('index.html').render(news_rows=get_news(rows), category=category)
+    # response = templates.TemplateResponse("index.html",
+    #                                       {"request": request, "news_rows": get_news(rows), "category": category})
     return response
 
 
