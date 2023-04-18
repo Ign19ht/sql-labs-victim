@@ -43,7 +43,10 @@ templates = Jinja2Templates(directory="templates/victim")
 @app.get("/filter", response_class=HTMLResponse)
 async def use_filter(request: Request, category: str):
     query = f"SELECT title, body, image_name FROM news WHERE category='{category}' AND hidden=0"
-    rows = db_request_postgres(query)
+    try:
+        rows = db_request_postgres(query)
+    except Exception:
+        rows = []
     response = templates.TemplateResponse("index.html",
                                           {"request": request, "news_rows": get_news(rows), "category": category})
     return response
